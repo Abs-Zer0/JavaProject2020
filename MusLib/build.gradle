@@ -1,0 +1,14 @@
+allprojects {
+
+    group = 'project.java.muslib'
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+}
