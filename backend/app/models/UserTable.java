@@ -57,23 +57,4 @@ public class UserTable {
             }
         }));
     }
-
-    public CompletionStage<User> getUser(Long id) {
-        return CompletableFuture.supplyAsync(() -> db.withConnection(connection -> {
-            try (Statement statement = connection.createStatement()) {
-                ResultSet userRow = statement.executeQuery("");
-                User res = null;
-                while (userRow.next()) {
-                    res = new User(userRow.getLong(1),
-                            userRow.getString(2),
-                            userRow.getString(3),
-                            userRow.getString(4),
-                            userRow.getBoolean(5));
-                }
-                return res;
-            } catch (SQLException ex) {
-                return null;
-            }
-        }));
-    }
 }

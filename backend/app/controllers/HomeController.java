@@ -1,12 +1,9 @@
 package controllers;
 
-import models.JavaApplicationDatabase;
+import models.AudioTable;
 import play.mvc.*;
 
 import javax.inject.Inject;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -14,11 +11,11 @@ import java.sql.Statement;
  */
 public class HomeController extends Controller {
 
-    private JavaApplicationDatabase jadb;
+    private AudioTable audios;
 
     @Inject
-    public HomeController(JavaApplicationDatabase jadb) {
-        this.jadb = jadb;
+    public HomeController(AudioTable Audios) {
+        this.audios = Audios;
     }
 
     /**
@@ -28,24 +25,6 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        /*try{
-            String url = "jdbc:h2:tcp://localhost/~/test";
-            String username = "admin";
-            String password = "admin";
-            Class.forName("org.h2.Driver").getDeclaredConstructor().newInstance();
-            String sql = "create table \"test\"(id int)";
-            try (Connection conn = DriverManager.getConnection(url, username, password)){
-                Statement statement = conn.createStatement();
-                statement.executeUpdate(sql);
-                System.out.println("Connection to Store DB succesfull!");
-            }
-        }
-        catch(Exception ex){
-            System.out.println("Connection failed...");
-
-            System.out.println(ex.getMessage());
-        }*/
-        jadb.updateSomething();
         return ok(views.html.index.render());
     }
 

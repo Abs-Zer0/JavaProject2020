@@ -55,21 +55,4 @@ public class PlaylistTable {
             }
         }));
     }
-
-    public CompletionStage<Playlist> getPlaylist(Long id) {
-        return CompletableFuture.supplyAsync(() -> db.withConnection(connection -> {
-            try (Statement statement = connection.createStatement()) {
-                ResultSet playlistRow = statement.executeQuery("");
-                Playlist res = null;
-                while (playlistRow.next()) {
-                    res = new Playlist(playlistRow.getLong(1),
-                            playlistRow.getString(2),
-                            playlistRow.getLong(3));
-                }
-                return res;
-            } catch (SQLException ex) {
-                return null;
-            }
-        }));
-    }
 }

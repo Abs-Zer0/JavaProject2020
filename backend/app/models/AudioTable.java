@@ -23,7 +23,11 @@ public class AudioTable {
     public CompletionStage<Integer> createTable() {
         return CompletableFuture.supplyAsync(() -> db.withConnection(connection -> {
             try (Statement statement = connection.createStatement()) {
-                return statement.executeUpdate("");
+                return statement.executeUpdate("CREATE TABLE audiotable (" +
+                        "id BIGINT PRIMARY KEY AUTO_INCREMENT," +
+                        "name VARCHAR(255) NOT NULL," +
+                        "duration DOUBLE NOT NULL," +
+                        "genre VARCHAR(255) NOT NULL)");
             } catch (SQLException ex) {
                 return 0;
             }
@@ -43,7 +47,7 @@ public class AudioTable {
     public CompletionStage<Stream<Audio>> getAudios() {
         return CompletableFuture.supplyAsync(() -> db.withConnection(connection -> {
             try (Statement statement = connection.createStatement()) {
-                ResultSet row = statement.executeQuery("");
+                ResultSet row = statement.executeQuery("SELECT * FROM audiotable");
                 ArrayList<Audio> res = new ArrayList<>();
                 while (row.next()) {
                     res.add(new Audio(row.getLong(1),
@@ -54,24 +58,6 @@ public class AudioTable {
                 return res.stream();
             } catch (SQLException ex) {
                 return new ArrayList<Audio>().stream();
-            }
-        }));
-    }
-
-    public CompletionStage<Audio> getAudio(Long id) {
-        return CompletableFuture.supplyAsync(() -> db.withConnection(connection -> {
-            try (Statement statement = connection.createStatement()) {
-                ResultSet audioRow = statement.executeQuery("");
-                Audio res = null;
-                while (audioRow.next()) {
-                    res = new Audio(audioRow.getLong(1),
-                            audioRow.getString(2),
-                            audioRow.getDouble(3),
-                            audioRow.getString(4));
-                }
-                return res;
-            } catch (SQLException ex) {
-                return null;
             }
         }));
     }
