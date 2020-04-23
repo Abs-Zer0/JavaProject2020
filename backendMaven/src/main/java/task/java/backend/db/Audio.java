@@ -5,8 +5,11 @@
  */
 package task.java.backend.db;
 
+import java.sql.Time;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -21,24 +24,85 @@ public class Audio {
     @Column(name = "id")
     private long Id;
     @Column(name = "name", nullable = false)
+    @Size(min = 1)
     private String name;
     @Column(name = "duration", nullable = false)
-    private double duration;
+    private Time duration;
+    @Column(name = "artist", nullable = false)
+    @Size(min = 1)
+    private String artist;
+    @Column(name = "path")
+    private String path;
     @Column(name = "genres")
     private String genres;
     @ManyToMany(mappedBy = "audios")
     private List<Playlist> playlists;
 
-    public Audio(long id, String name, double duration) {
+    public Audio() {
+    }
+
+    public Audio(long id, String name, Time duration) {
         this.Id = id;
         this.name = name;
         this.duration = duration;
-        this.genres = new String();
+        this.path = "";
+        this.artist = "";
+        this.genres = "";
     }
 
-    public Audio(long id, String name, double duration, String genres) {
+    public Audio(long id, String name, Time duration, String path) {
         this(id, name, duration);
+        this.path = path;
+    }
+
+    public Audio(long id, String name, String artists, Time duration, String path) {
+        this(id, name, duration, path);
+        this.artist = artists;
+    }
+
+    public Audio(long id, String name, Time duration, String path, String genres) {
+        this(id, name, duration, path);
         this.genres = genres;
+    }
+
+    public Audio(long id, String name, String artists, Time duration, String path, String genres) {
+        this(id, name, artists, duration, path);
+        this.genres = genres;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Audio other = (Audio) obj;
+        if (this.Id != other.Id) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.artist, other.artist)) {
+            return false;
+        }
+        if (!Objects.equals(this.path, other.path)) {
+            return false;
+        }
+        if (!Objects.equals(this.genres, other.genres)) {
+            return false;
+        }
+        return true;
     }
 
     public long getId() {
@@ -53,8 +117,28 @@ public class Audio {
         this.name = newName;
     }
 
-    public double getDuration() {
+    public String getArtists() {
+        return this.artist;
+    }
+
+    public void setArtists(String newArtists) {
+        this.artist = newArtists;
+    }
+
+    public void addArtist(String artist) {
+        this.artist += ", " + artist;
+    }
+
+    public Time getDuration() {
         return this.duration;
+    }
+
+    public String getPath() {
+        return this.path;
+    }
+
+    public void setPath(String newPath) {
+        this.path = newPath;
     }
 
     public String getGenres() {

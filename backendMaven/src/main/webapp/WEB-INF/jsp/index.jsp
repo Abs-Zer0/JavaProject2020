@@ -2,7 +2,9 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
-<!DOCTYPE HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
     <head>
         <title>Главная</title>
@@ -10,17 +12,83 @@
         <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">
     </head>
     <body>
-        <div>
-            <h3>${pageContext.request.userPrincipal.name}</h3>
-            <sec:authorize access="!isAuthenticated()">
-                <h4><a href="/login">Войти</a></h4>
-                <h4><a href="/registration">Зарегистрироваться</a></h4>
-            </sec:authorize>
-            <sec:authorize access="isAuthenticated()">
-                <h4><a href="/logout">Выйти</a></h4>
-            </sec:authorize>
-            <h4><a href="/news">Новости (только пользователь)</a></h4>
-            <h4><a href="/admin">Пользователи (только админ)</a></h4>
+        <div class="bg">
+            <section class="header center">
+                <div class="logo">
+                    <h1><a href="/">Audio stream</a></h1>
+                </div>
+            </section>
+            <section class="menu center">
+                <ul>
+                    <li class="block-inline current_page_item"><a class="btn" href="/">Все треки</a></li>
+                    <li class="block-inline"><a class="btn" href="/users">Все пользователи</a></li>
+                </ul>
+                <div class="login-block block-inline">
+                    <sec:authorize access="isAuthenticated()">
+                        <h3>Привет, ${pageContext.request.userPrincipal.name}</h3>
+                        <a class="btn" href="/logout">Выйти</a>
+                    </sec:authorize>
+                    <sec:authorize access="!isAuthenticated()">
+                        <form method="POST" action="/login">
+                            <table>
+                                <tr>
+                                    <td><input name="username" placeholder="Username"></td>
+                                    <td><button class="btn" type="submit">Войти</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input name="password" type="password" placeholder="Enter password"></td>
+                                    <td><a class="btn" href="/reg">Регистрация</a></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </sec:authorize>
+                </div>
+            </section>
+            <section class="page center">
+                <div class="content">
+                    <c:if test="${canChangeAudio}">
+                        <a class="btn" href="/add_audio">+</a>
+                    </c:if>
+                    <table>
+                        <c:forEach items="${allAudios}" var="audio">
+                            <tr>
+                                <td>|></td>
+                                <td>
+                                        <h3>${audio.name}</h3><p>${audio.artists}</p>
+                                </td>
+                                <td>${audio.getDuration().toLocalTime().toString()}</td>
+                                <c:if test="${canChangeAudio}">
+                                    <td>
+                                        <a class="btn" href="/audios/${audio.getId()}">C</a>
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="/audios/${audio.getId()}">
+                                            <input type="hidden" name="audioId" value="${audio.getId()}"/>
+                                            <input type="hidden" name="action" value="delete"/>
+                                            <button class="btn" type="submit">x</button>
+                                        </form>
+                                    </td>
+                                </c:if>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+                <div class="sidebar">
+                    <div class="search">
+                        <h2>Поиск</h2>
+                        <form method="GET" action="/search">
+                            <input type="text" name="keyword" size="15" placeholder="Enter keyword">
+                            <button class="btn" type="submit">&#128269;</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section class="footer center">
+                <p>
+                    &copy; Untitled. All rights reserved. Design by
+                    <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.
+                </p>
+            </section>
         </div>
     </body>
 </html>

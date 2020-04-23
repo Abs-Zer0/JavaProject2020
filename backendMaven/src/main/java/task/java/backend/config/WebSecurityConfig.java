@@ -31,30 +31,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity security) throws Exception {
-        security
-                .csrf()
-                .disable()
-                .authorizeRequests()
-                //Доступ только для не зарегистрированных пользователей
-                .antMatchers("/reg").not().fullyAuthenticated()
-                //Доступ только для пользователей с ролью Администратор
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/news").hasRole("USER")
-                //Доступ разрешен всем пользователей
-                .antMatchers("/", "/resources/**").permitAll()
-                //Все остальные страницы требуют аутентификации
-                .anyRequest().authenticated()
-                .and()
-                //Настройка для входа в систему
-                .formLogin()
-                .loginPage("/login")
-                //Перенарпавление на главную страницу после успешного входа
-                .defaultSuccessUrl("/")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .logoutSuccessUrl("/");
+        security.csrf().disable();
+        security.authorizeRequests().antMatchers("/reg").not().fullyAuthenticated();
+        security.authorizeRequests().antMatchers("/", "/resources/**").permitAll();
+        security.authorizeRequests()
+                .antMatchers("/add_audio", "/audios/**", "/users", "/users/**")
+                .hasRole("ADMIN");
+        security.authorizeRequests().anyRequest().authenticated();
+        security.formLogin().loginPage("/login").defaultSuccessUrl("/").permitAll();
+        security.logout().permitAll().logoutSuccessUrl("/");
     }
 
     @Autowired

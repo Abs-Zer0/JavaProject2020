@@ -5,7 +5,7 @@
  */
 package task.java.backend.db;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.*;
 
 /**
  *
@@ -13,4 +13,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
+    @Query(value = "select * from roles where roles.id = 2", nativeQuery = true)
+    Role Admin();
+
+    @Query(value = "select * from roles where roles.id = 1", nativeQuery = true)
+    Role User();
 }

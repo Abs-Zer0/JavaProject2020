@@ -1,36 +1,50 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
     <head>
-        <meta charset="utf-8">
         <title>Регистрация</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">
     </head>
 
     <body>
-        <div>
-            <form:form method="POST" modelAttribute="userForm">
-                <h2>Регистрация</h2>
-                <div>
-                    <form:input type="text" path="username" placeholder="Username"
-                                autofocus="true"></form:input>
-                    <form:errors path="username"></form:errors>
-                    ${usernameError}
+        <sec:authorize access="isAuthenticated()">
+            <% response.sendRedirect("/"); %>
+        </sec:authorize>
+        <div class="bg">
+            <section class="header center">
+                <div class="logo">
+                    <h1><a href="/">Audio stream</a></h1>
                 </div>
-                <div>
-                    <form:input type="password" path="password" placeholder="Password"></form:input>
+            </section>
+            <section class="form center">
+                <h2>Регистрация</h2>
+                <form:form method="POST" modelAttribute="userForm">
+                    <div>
+                        <form:input type="text" path="name" placeholder="Your name" autofocus="true"></form:input>
+                        </div>
+                        <div>
+                        <form:input type="text" path="username" placeholder="Username"></form:input>
+                        <form:errors path="username"></form:errors>
+                        ${usernameError}
                     </div>
                     <div>
-                    <form:input type="password" path="passwordConfirm"
-                                placeholder="Confirm your password"></form:input>
-                    <form:errors path="password"></form:errors>
-                    ${passwordError}
-                </div>
-                <button type="submit">Зарегистрироваться</button>
-            </form:form>
-            <a href="/">Главная</a>
+                        <form:input type="password" path="password" placeholder="Password"></form:input>
+                        <form:input type="password" path="passwordConfirm"
+                                    placeholder="Confirm your password"></form:input>
+                        <form:errors path="password"></form:errors>
+                        ${passwordError}
+                    </div>
+                    <div>
+                        <button class="btn" type="submit">Зарегистрироваться</button>
+                    </div>
+                </form:form>
+            </section>
         </div>
     </body>
 </html>

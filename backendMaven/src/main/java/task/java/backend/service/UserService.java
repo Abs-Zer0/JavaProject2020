@@ -43,16 +43,15 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean addUser(User user) {
-        User exisUser = usrepo.findByUsername(user.getUsername());
-        if (exisUser != null) {
+        User existUser = usrepo.findByUsername(user.getUsername());
+        if (existUser != null) {
             return false;
         }
 
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-        user.setPassword(passwdenc.encode(user.getPassword()));
-        user.setPasswordConfirm(user.getPassword());
+        User correct = new User(0, user.getUsername(), passwdenc.encode(user.getPassword()), user.getName());
+        correct.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
 
-        usrepo.save(user);
+        usrepo.save(correct);
 
         return true;
     }

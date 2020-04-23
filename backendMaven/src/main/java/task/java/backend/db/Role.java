@@ -25,15 +25,45 @@ public class Role implements GrantedAuthority {
     @Column(name = "name")
     @Size(min = 6)
     private String name;
-    @ManyToMany
-    @JoinTable(name = "UR",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ManyToMany(mappedBy = "roles")
     private List<User> users;
+
+    public Role() {
+    }
+
+    public Role(Long id) {
+        this.Id = id;
+    }
 
     public Role(Long id, String name) {
         this.Id = id;
         this.name = name;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Role other = (Role) obj;
+        if (!Objects.equals(this.Id, other.Id)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
     }
 
     public Long getId() {

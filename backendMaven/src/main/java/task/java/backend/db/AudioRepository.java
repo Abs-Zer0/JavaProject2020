@@ -6,6 +6,9 @@
 package task.java.backend.db;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
@@ -13,4 +16,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface AudioRepository extends JpaRepository<Audio, Long> {
 
+    @Query(value = "select count(*) "
+            + "from audios tab "
+            + "where tab.name = :name and tab.artist = :artist",
+            nativeQuery = true)
+    long anyMatches(@Param("name") String name, @Param("artist") String artist);
 }

@@ -1,0 +1,274 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16 апр. 2020 г., 10:43:13
+    Author     : illyasviel
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    color: #9F0000;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 2.4em;
+}
+
+h3 {
+    font-size: 1.6em;
+}
+
+p, ul, ol {
+    margin-top: 0;
+    line-height: 180%;
+}
+
+ul, ol {
+}
+
+a {
+    text-decoration: none;
+    color: #9F0000;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+input {
+    display: inline-block;
+    min-width: 150px;
+    padding: 6px 10px;
+    border: none;
+    background: #FFFFFF;
+    text-transform: none;
+    font: normal 14px Arial, Helvetica, sans-serif;
+}
+
+.bg {
+    margin: 0px 200px;
+    background: url(../img/bg.jpg) no-repeat center top;
+    background-size: cover;
+}
+
+.center {
+    margin: 0 50px;
+    padding: 0;
+}
+
+.block-inline {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.btn {
+    margin: 0px 2px 0px 0px;
+    padding: 5px 20px;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    color: #FFFFFF;
+    background: none;
+    border: none;
+}
+
+.btn:hover {
+    background: #F2AE30;
+    text-decoration: none;
+    color: #000000;
+}
+
+.header {
+    padding-top: 25px;
+    padding-bottom: 50px;
+}
+
+.logo {
+    margin: 0px;
+    padding: 0px;
+    color: #FFFFFF;
+}
+
+.logo h1 {
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    text-shadow: #808080 -1px 1px 2px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 50px;
+}
+
+.logo a {
+    border: none;
+    background: none;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.menu {
+    text-align: right;
+    vertical-align: middle;
+    min-height: 68px;
+}
+
+.menu ul {
+    float: left;
+    margin: 25px 0;
+    padding: 0px;
+    list-style: none;
+    line-height: normal;
+}
+
+.menu .current_page_item a {
+    background: #F2AE30;
+    color: #000000;
+}
+
+.menu .login-block h3 {
+    padding: 5px 20px;
+    margin-bottom: 15px;
+    color: #000000;
+    background: #F2AE30;
+}
+
+.menu .login-block input {
+    max-width: 200px;
+}
+
+.form {
+    text-align: center;
+}
+
+.form h2 {
+    display: inline-block;
+    margin-bottom: 30px;
+    padding: 5px 20px;
+    color: #000000;
+    background: #F2AE30;
+}
+
+.form form div {
+    margin-bottom: 20px;
+}
+
+.form form div input {
+    text-transform: none;
+}
+
+.form form div input[type=file] {
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    background: none;
+}
+
+.page {
+    padding-top: 50px;
+}
+
+.page:after {
+    content: " ";
+    display: block;
+    clear: both;
+}
+
+.page .content {
+    float: left;
+    width: 73%;
+    padding-top: 60px;
+}
+
+.page .content table {
+    margin-top: 25px;
+    width: 100%;
+}
+
+.page .content table tr {
+    background: #808080;
+    border: 3px solid #F2AE30;
+}
+
+.page .content table td {
+    padding: 5px 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.page .sidebar  {
+    float: right;
+    width: 22%;
+    font-size: 14px;
+}
+
+.page .sidebar h2 {
+    height: 30px;
+    margin-bottom: 20px;
+    padding: 11px 0px 0px 30px;
+    background: url(../img/h2_bg.gif) no-repeat left top;
+    font-size: 18px;
+    font-weight: normal;
+    color: #000000;
+}
+
+.page .sidebar .search {
+    min-height: 110px;
+    padding: 0;
+}
+
+.page .sidebar .search form {
+    min-height: 50px;
+    padding-left: 20px;
+    vertical-align: middle;
+}
+
+.page .sidebar .search form input[type=text] {
+    display: inline-block;
+}
+
+.page .sidebar .search form button[type=submit] {
+    display: inline-block;
+    font-size: 25px;
+    min-width: 35px;
+    min-height: 35px;
+}
+
+.footer {
+    margin: 0px 120px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.footer p {
+    margin: 0;
+    padding: 20px 0px;
+    line-height: normal;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+
+.footer a {
+    color: #FFFFFF;
+}
