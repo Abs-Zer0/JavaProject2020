@@ -5,24 +5,19 @@
  */
 package task.java.backend.controller;
 
-import java.io.File;
-import java.io.IOException;
+import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import task.java.backend.config.StorageProperties;
-import task.java.backend.db.Audio;
-import task.java.backend.db.AudioRepository;
+import task.java.backend.db.*;
 import task.java.backend.service.StorageService;
 
 /**
@@ -37,6 +32,9 @@ public class AudioController {
 
     @Autowired
     private AudioRepository aurepo;
+
+    @Autowired
+    private RoleRepository rorepo;
 
     @GetMapping("/add_audio")
     public String addAudioForm(Model model) {
@@ -57,7 +55,6 @@ public class AudioController {
 
         } catch (Exception e) {
             model.addAttribute("fileError", e.getMessage());
-            e.printStackTrace();
             return "add_audio";
         }
     }
@@ -76,11 +73,11 @@ public class AudioController {
     }
 
     @PostMapping("/audios/{id}")
-    public String changeAudio(@PathVariable long id, @ModelAttribute("userForm") @Valid Audio audioForm, BindingResult result, Model model) {
+    public String changeAudio(@PathVariable long id, @ModelAttribute("audioForm") @Valid Audio audioForm, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "audios";
         }
-        
+
         Audio audio = aurepo.getOne(id);
         audio.setName(audioForm.getName());
         audio.setArtists(audioForm.getArtists());
@@ -93,4 +90,26 @@ public class AudioController {
         return "audios";
     }
 
+    @GetMapping(value = "/audios/{id}/delete")
+    public String deleteAudio(@PathVariable long id, RedirectAttributes redirect, Model model, Principal principal) {
+        String deleteAudioMsg = "Запись (" + Long.toString(id) + ") успешно удалена";
+        Optional<Audio> op = aurepo.findById(id);
+        if (op.isEmpty()) {
+            deleteAudioMsg = "Записи (" + Long.toString(id) + ") не существует";
+        } else {
+            aurepo.deleteById(id);
+        }
+
+        Boolean canChangeAudio = false;
+        if (principal != null) {
+            User logined = (User) ((Authentication) principal).getPrincipal();
+            canChangeAudio = logined.getAuthorities().contains(rorepo.Admin());
+        }
+
+        redirect.addFlashAttribute("deleteAudioMsg", deleteAudioMsg);
+        redirect.addFlashAttribute("canChangeAudio", canChangeAudio);
+        redirect.addFlashAttribute("allAudios", aurepo.findAll());
+
+        return "redirect:/";
+    }
 }

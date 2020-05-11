@@ -82,8 +82,6 @@ public class User implements UserDetails {
         }
         return true;
     }
-    
-    
 
     public long getId() {
         return this.Id;
@@ -159,5 +157,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean isAdmin() {
+        return this.roles.contains(new Role(2l, "ROLE_ADMIN"));
     }
 }

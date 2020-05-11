@@ -46,6 +46,7 @@
             </section>
             <section class="page center">
                 <div class="content">
+                    <h2>${deleteAudioMsg}</h2>
                     <c:if test="${canChangeAudio}">
                         <a class="btn" href="/add_audio">+</a>
                     </c:if>
@@ -62,11 +63,7 @@
                                         <a class="btn" href="/audios/${audio.getId()}">C</a>
                                     </td>
                                     <td>
-                                        <form method="POST" action="/audios/${audio.getId()}">
-                                            <input type="hidden" name="audioId" value="${audio.getId()}"/>
-                                            <input type="hidden" name="action" value="delete"/>
-                                            <button class="btn" type="submit">x</button>
-                                        </form>
+                                        <a class="btn" href="/audios/${audio.getId()}/delete">X</a>
                                     </td>
                                 </c:if>
                             </tr>

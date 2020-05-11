@@ -22,23 +22,21 @@ import task.java.backend.db.*;
 public class MainController {
 
     @Autowired
-    private AudioRepository aurep;
+    private AudioRepository aurepo;
 
     @Autowired
-    private RoleRepository rorep;
+    private RoleRepository rorepo;
 
     @GetMapping("/")
     public String index(Model model, Principal principal) {
         Boolean canChangeAudio = false;
-        List<Audio> audios = aurep.findAll();
-
         if (principal != null) {
             User logined = (User) ((Authentication) principal).getPrincipal();
-            canChangeAudio = logined.getAuthorities().contains(rorep.Admin());
+            canChangeAudio = logined.getAuthorities().contains(rorepo.Admin());
         }
 
         model.addAttribute("canChangeAudio", canChangeAudio);
-        model.addAttribute("allAudios", audios);
+        model.addAttribute("allAudios", aurepo.findAll());
 
         return "index";
     }

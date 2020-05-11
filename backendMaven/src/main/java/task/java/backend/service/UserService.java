@@ -25,11 +25,11 @@ import task.java.backend.db.UserRepository;
 public class UserService implements UserDetailsService {
 
     @Autowired
-    UserRepository usrepo;
+    private UserRepository usrepo;
     @Autowired
-    RoleRepository rorepo;
+    private RoleRepository rorepo;
     @Autowired
-    BCryptPasswordEncoder passwdenc;
+    private BCryptPasswordEncoder passwdenc;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
