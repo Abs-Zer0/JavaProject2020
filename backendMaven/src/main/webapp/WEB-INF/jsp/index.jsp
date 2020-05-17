@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
@@ -46,7 +47,7 @@
             </section>
             <section class="page center">
                 <div class="content">
-                    <h2>${deleteAudioMsg}</h2>
+                    <h2>${audioMsg}</h2>
                     <c:if test="${canChangeAudio}">
                         <a class="btn" href="/add_audio">+</a>
                     </c:if>
@@ -73,10 +74,10 @@
                 <div class="sidebar">
                     <div class="search">
                         <h2>Поиск</h2>
-                        <form method="GET" action="/search">
-                            <input type="text" name="keyword" size="15" placeholder="Enter keyword">
+                        <form:form method="GET" action="/audios/search">
+                            <input type="text" name="keyword" size="15" placeholder="Enter keyword" value="${searchWord}">
                             <button class="btn" type="submit">&#128269;</button>
-                        </form>
+                        </form:form>
                     </div>
                 </div>
             </section>

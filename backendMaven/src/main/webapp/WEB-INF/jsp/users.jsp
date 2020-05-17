@@ -81,8 +81,8 @@
                 <div class="sidebar">
                     <div class="search">
                         <h2>Поиск</h2>
-                        <form method="GET" action="/search">
-                            <input type="text" name="keyword" size="15" placeholder="Enter keyword">
+                        <form method="GET" action="/users/search">
+                            <input type="text" name="keyword" size="15" placeholder="Enter keyword" value="${searchWord}">
                             <button class="btn" type="submit">&#128269;</button>
                         </form>
                     </div>

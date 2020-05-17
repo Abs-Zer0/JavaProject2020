@@ -106,7 +106,7 @@ public class AudioController {
             canChangeAudio = logined.getAuthorities().contains(rorepo.Admin());
         }
 
-        redirect.addFlashAttribute("deleteAudioMsg", deleteAudioMsg);
+        redirect.addFlashAttribute("audioMsg", deleteAudioMsg);
         redirect.addFlashAttribute("canChangeAudio", canChangeAudio);
         redirect.addFlashAttribute("allAudios", aurepo.findAll());
 
